@@ -1,0 +1,37 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: pg-tech
+  namespace: default
+spec:
+  teamId: "tech"
+  volume:
+    size: 1Gi
+    storageClass: local-path-fast-retain
+  numberOfInstances: 3
+  enableMasterLoadBalancer: false
+  enableMasterPoolerLoadBalancer: false
+  enableConnectionPooler: true
+  enableLogicalBackup: false
+  users:
+    postgres: # database owner
+      - superuser
+      - createdb
+    harbor: []
+  databases:
+    postgres: postgres # dbname: owner
+    harbor: harbor
+  preparedDatabases:
+    postgres: {}
+  postgresql:
+    version: "16"
+    parameters:
+      max_connections: "100"
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: postgres
+              operator: In
+              values:
+                - "true"
