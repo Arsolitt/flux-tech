@@ -3,6 +3,10 @@ kind: Kustomization
 resources:
   - ../base/
 patches:
+  - path: sc-patch.yaml
+    target:
+      kind: StorageClass
+      labelSelector: app=local-path-storage-class
   - path: sc-retain-patch.yaml
     target:
       kind: StorageClass

@@ -1,9 +1,3 @@
 - op: replace
   path: /metadata/name
   value: local-path-fast-retain
-- op: replace
-  path: /metadata/labels/type
-  value: fast
-- op: replace
-  path: /parameters/nodePath
-  value: /storage/fast
