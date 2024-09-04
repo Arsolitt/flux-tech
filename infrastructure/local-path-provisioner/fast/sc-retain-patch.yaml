@@ -4,3 +4,6 @@
 - op: replace
   path: /metadata/labels/type
   value: fast
+- op: replace
+  path: /parameters/nodePath
+  value: /storage/fast
