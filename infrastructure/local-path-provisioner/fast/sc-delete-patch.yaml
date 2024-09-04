@@ -1,0 +1,6 @@
+- op: replace
+  path: /metadata/name
+  value: local-path-fast-delete
+- op: replace
+  path: /metadata/labels/type
+  value: fast
