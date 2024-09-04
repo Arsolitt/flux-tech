@@ -7,7 +7,7 @@ spec:
   releaseName: zalando-operator
   chart:
     spec:
-      chart: zalando-pg
+      chart: postgres-operator
       version: ">=1.13.0"
       sourceRef:
         kind: HelmRepository
