@@ -35,3 +35,5 @@ spec:
               operator: In
               values:
                 - "true"
+  connectionPooler:
+    numberOfInstances: 1
