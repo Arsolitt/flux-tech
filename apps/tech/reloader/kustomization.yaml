@@ -12,6 +12,13 @@ patches:
         path: /metadata/namespace
         value: reloader
   - target:
+      kind: HelmRelease
+      name: reloader
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: reloader
+  - target:
       kind: HelmRepository
       name: stakater
     patch: |

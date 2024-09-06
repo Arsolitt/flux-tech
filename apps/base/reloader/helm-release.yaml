@@ -10,7 +10,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: stakater
-        namespace: flux-system
   interval: 5m
   install:
     remediation:
