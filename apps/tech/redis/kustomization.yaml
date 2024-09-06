@@ -38,7 +38,7 @@ patches:
             databases 32
           master:
             count: 1
-            revisionHistoryLimit: 3
+            revisionHistoryLimit: 1
             extraFlags:
               - "--databases 32"
             startupProbe:
