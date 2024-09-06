@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/base/zalando-operator
+  path: apps/base/zalando-operator
   prune: true
   wait: true
   patches:
@@ -68,38 +68,3 @@ spec:
               connection_pooler_default_memory_request: 128Mi
               connection_pooler_default_cpu_limit: "1"
               connection_pooler_default_memory_limit: 1024Mi
-
-# ---
-# apiVersion: kustomize.config.k8s.io/v1beta1
-# kind: Kustomization
-# resources:
-#   - ../../base/zalando-operator
-# patches:
-#   - target:
-#       kind: HelmRelease
-#       name: reloader
-#     patch: |
-#       - op: replace
-#         path: /spec/values
-#         value:
-#           reloader:
-#             autoReloadAll: false
-#             readOnlyRootFileSystem: true
-#             deployment:
-#               livenessProbe:
-#                 timeoutSeconds: 5
-#                 failureThreshold: 5
-#                 periodSeconds: 10
-#                 successThreshold: 1
-#               readinessProbe:
-#                 timeoutSeconds: 15
-#                 failureThreshold: 5
-#                 periodSeconds: 10
-#                 successThreshold: 1
-#               resources:
-#                 limits:
-#                   cpu: "100m"
-#                   memory: "512Mi"
-#                 requests:
-#                   cpu: "10m"
-#                   memory: "64Mi"

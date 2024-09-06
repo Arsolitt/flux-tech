@@ -1,16 +1,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: pg-tech
   namespace: flux-system
 spec:
-  interval: 10m0s
   dependsOn:
-    - name: infra-configs
+    - name: zalando-operator
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: apps/tech
+  path: apps/tech/zalando-postgres/pg-tech
   prune: true
-  wait: true
-  timeout: 5m0s
+  # wait: true
