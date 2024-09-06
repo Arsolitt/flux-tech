@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/local-path-provisioner
+patches:
+  - target:
+      kind: StorageClass
+      labelSelector: app=local-path-storage-class
+    patch: |
+      apiVersion: storage.k8s.io/v1
+      kind: StorageClass
+      metadata:
+        name: local-path
+        labels:
+          type: fast
+      parameters:
+        nodePath: /storage/fast
+      provisioner: rancher.io/local-path
+  - target:
+      kind: StorageClass
+      labelSelector: app=local-path-storage-class,policy=retain
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: local-fast-retain
+  - target:
+      kind: StorageClass
+      labelSelector: app=local-path-storage-class,policy=delete
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: local-fast-delete
