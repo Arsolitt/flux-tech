@@ -28,6 +28,7 @@ spec:
               cluster_domain: cluster.local
 
             configPostgresPodResources:
+            
               # CPU limits for the postgres containers
               default_cpu_limit: "1"
               # CPU request value for the postgres containers
