@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: zalando-pg
-        namespace: flux-system
+        namespace: operator
   interval: 24h
   install:
     remediation:
