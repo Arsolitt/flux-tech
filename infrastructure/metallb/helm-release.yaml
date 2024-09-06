@@ -20,11 +20,11 @@ spec:
   values:
     controller:
       nodeSelector:
-        ingress: "true"
+        metallb: "true"
       tolerations:
-        - key: "metallb"
+        - key: "node-role.kubernetes.io/control-plane"
           operator: "Equal"
-          value: "true"
+          value: ""
           effect: "NoSchedule"
       resources:
         requests:
@@ -35,11 +35,11 @@ spec:
           memory: 128Mi
     speaker:
       nodeSelector:
-        ingress: "true"
+        metallb: "true"
       tolerations:
-        - key: "metallb"
+        - key: "node-role.kubernetes.io/control-plane"
           operator: "Equal"
-          value: "true"
+          value: ""
           effect: "NoSchedule"
       resources:
         requests:
