@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: metallb
         namespace: metallb
-  interval: 5m
+  interval: 1h
   install:
     remediation:
       retries: 3
