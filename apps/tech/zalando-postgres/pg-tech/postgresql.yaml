@@ -1,13 +1,13 @@
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
-  name: pg-tech
+  name: pg-tech-test
   namespace: data
 spec:
   teamId: "tech"
   volume:
     size: 1Gi
-    storageClass: local-fast-retain
+    storageClass: local-fast-delete
   numberOfInstances: 3
   enableMasterLoadBalancer: false
   enableMasterPoolerLoadBalancer: false
