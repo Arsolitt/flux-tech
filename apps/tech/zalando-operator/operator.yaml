@@ -4,7 +4,7 @@ metadata:
   name: zalando-operator
   namespace: operator
 spec:
-  interval: 1h
+  interval: 2h
   retryInterval: 1m
   timeout: 5m
   sourceRef:
