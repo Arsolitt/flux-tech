@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-retain
+  labels:
+    app: local-path-storage-class
+    policy: retain
+provisioner: rancher.io/local-path
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+allowVolumeExpansion: true
