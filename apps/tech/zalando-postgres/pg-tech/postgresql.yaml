@@ -7,7 +7,7 @@ spec:
   teamId: "tech"
   volume:
     size: 1Gi
-    storageClass: local-path-fast-retain
+    storageClass: local-fast-retain
   numberOfInstances: 3
   enableMasterLoadBalancer: false
   enableMasterPoolerLoadBalancer: false
