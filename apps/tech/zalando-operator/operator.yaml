@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: apps/base/zalando-operator
+  path: ./apps/base/zalando-operator
   prune: true
   wait: true
   patches:
