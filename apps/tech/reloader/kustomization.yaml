@@ -8,6 +8,20 @@ patches:
       name: reloader
     patch: |
       - op: replace
+        path: /metadata/namespace
+        value: reloader
+  - target:
+      kind: HelmRepository
+      name: stakater
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: reloader
+  - target:
+      kind: HelmRelease
+      name: reloader
+    patch: |
+      - op: replace
         path: /spec/values
         value:
           reloader:
