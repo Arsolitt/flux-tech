@@ -1,0 +1,121 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/redis
+  - namespace.yaml
+patches:
+  - target:
+      kind: HelmRelease
+      name: redis
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: data
+  - target:
+      kind: HelmRelease
+      name: redis
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: data
+  - target:
+      kind: HelmRepository
+      name: redis
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: data
+  - target:
+      kind: HelmRelease
+      name: redis
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          commonConfiguration:
+            # Enable AOF https://redis.io/topics/persistence#append-only-file
+            appendonly no
+            # Disable RDB persistence, AOF persistence already enabled.
+            save ""
+            databases 32
+          master:
+            count: 1
+            revisionHistoryLimit: 3
+            extraFlags:
+              - "--databases 32"
+            startupProbe:
+              enabled: true
+              initialDelaySeconds: 20
+              periodSeconds: 10
+              timeoutSeconds: 10
+              successThreshold: 1
+              failureThreshold: 15
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                cpu: 1
+                memory: 1024Mi
+            tolerations:
+              - key: stateful
+                operator: Equal
+                value: "true"
+                effect: NoSchedule
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: redis
+                          operator: In
+                          values:
+                            - "true"
+            persistence:
+              enabled: false
+          replica:
+            replicaCount: 3
+            revisionHistoryLimit: 3
+            extraFlags:
+              - "--databases 32"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                cpu: 1
+                memory: 1024Mi
+            tolerations:
+              - key: stateful
+                operator: Equal
+                value: "true"
+                effect: NoSchedule
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: redis
+                          operator: In
+                          values:
+                            - "true"
+            persistence:
+              enabled: false
+
+          sentinel:
+            extraFlags:
+              - "--databases 32"
+            enabled: true
+            masterSet: dev
+            quorum: 2
+            automateClusterRecovery: true
+            redisShutdownWaitFailover: true
+            persistence:
+              enabled: false
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                cpu: 1
+                memory: 1024Mi
