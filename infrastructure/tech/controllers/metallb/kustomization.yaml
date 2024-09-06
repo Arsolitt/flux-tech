@@ -9,7 +9,7 @@ patches:
     patch: |
       - op: replace
         path: /spec/values
-        value: |-
+        value: |
           controller:
             nodeSelector:
               metallb: "true"
