@@ -1,5 +1,82 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - operator.yaml
+  - ../../base/zalando-operator
   - namespace.yaml
+patches:
+  - target:
+      kind: HelmRelease
+      name: zalando-operator
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: operator
+  - target:
+      kind: HelmRelease
+      name: zalando-operator
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: operator
+  - target:
+      kind: HelmRepository
+      name: zalando-pg
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: operator
+  - target:
+      kind: HelmRelease
+      name: zalando-operator
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          enableJsonLogging: true
+
+          configKubernetes:
+            cluster_domain: cluster.local
+
+          configPostgresPodResources:
+
+            # CPU limits for the postgres containers
+            default_cpu_limit: "1"
+            # CPU request value for the postgres containers
+            default_cpu_request: 100m
+            # memory limits for the postgres containers
+            default_memory_limit: 1024Mi
+            # memory request value for the postgres containers
+            default_memory_request: 100Mi
+            # optional upper boundary for CPU request
+            # max_cpu_request: "1"
+
+            # optional upper boundary for memory request
+            # max_memory_request: 4Gi
+
+            # hard CPU minimum required to properly run a Postgres cluster
+            min_cpu_limit: 250m
+            # hard memory minimum required to properly run a Postgres cluster
+            min_memory_limit: 250Mi
+
+          configLoadBalancer:
+            db_hosted_zone: cluster.local
+
+          # configLogicalBackup:
+          #   logical_backup_provider: "s3"
+          #   logical_backup_s3_access_key_id: ""
+          #   logical_backup_s3_bucket: "pg-backup"
+          #   logical_backup_s3_bucket_prefix: ""
+          #   logical_backup_s3_region: "ru-msk"
+          #   logical_backup_s3_endpoint: "https://hb.bizmrg.com"
+          #   logical_backup_s3_secret_access_key: ""
+          #   logical_backup_s3_sse: "AES256"
+          #   logical_backup_s3_retention_time: "7 days"
+          #   logical_backup_schedule: "30 03 * * *"
+          # logical_backup_schedule: "30 * * * *"
+
+          configConnectionPooler:
+            connection_pooler_max_db_connections: 100
+            connection_pooler_default_cpu_request: 50m
+            connection_pooler_default_memory_request: 128Mi
+            connection_pooler_default_cpu_limit: "1"
+            connection_pooler_default_memory_limit: 1024Mi
