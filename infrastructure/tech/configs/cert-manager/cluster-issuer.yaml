@@ -15,3 +15,5 @@ spec:
       - http01:
           ingress:
             class: contour
+
+
