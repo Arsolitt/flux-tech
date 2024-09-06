@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: local-path-provisioner-role
-  namespace: local-storage
+  namespace: storage
 rules:
   - apiGroups: [""]
     resources: ["pods"]
