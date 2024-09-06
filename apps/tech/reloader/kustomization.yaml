@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/reloader
+patches:
+  - target:
+      kind: HelmRelease
+      name: reloader
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          reloader:
+            autoReloadAll: false
+            readOnlyRootFileSystem: true
+            deployment:
+              livenessProbe:
+                timeoutSeconds: 5
+                failureThreshold: 5
+                periodSeconds: 10
+                successThreshold: 1
+              readinessProbe:
+                timeoutSeconds: 15
+                failureThreshold: 5
+                periodSeconds: 10
+                successThreshold: 1
+              resources:
+                limits:
+                  cpu: "100m"
+                  memory: "512Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "64Mi"
