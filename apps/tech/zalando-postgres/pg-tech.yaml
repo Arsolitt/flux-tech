@@ -14,4 +14,4 @@ spec:
     name: flux-system
   path: apps/tech/zalando-postgres/pg-tech
   prune: true
-  # wait: true
+  wait: true
