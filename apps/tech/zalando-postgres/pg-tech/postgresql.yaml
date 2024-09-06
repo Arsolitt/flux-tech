@@ -18,9 +18,11 @@ spec:
       - superuser
       - createdb
     harbor: []
+    grafana: []
   databases:
     postgres: postgres # dbname: owner
     harbor: harbor
+    grafana: grafana
   preparedDatabases:
     postgres: {}
   postgresql:
