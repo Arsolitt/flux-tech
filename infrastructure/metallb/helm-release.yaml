@@ -22,9 +22,9 @@ spec:
       nodeSelector:
         ingress: "true"
       tolerations:
-        - key: "node-role.kubernetes.io/control-plane"
+        - key: "metallb"
           operator: "Equal"
-          value: ""
+          value: "true"
           effect: "NoSchedule"
       resources:
         requests:
@@ -37,9 +37,9 @@ spec:
       nodeSelector:
         ingress: "true"
       tolerations:
-        - key: "node-role.kubernetes.io/control-plane"
+        - key: "metallb"
           operator: "Equal"
-          value: ""
+          value: "true"
           effect: "NoSchedule"
       resources:
         requests:
