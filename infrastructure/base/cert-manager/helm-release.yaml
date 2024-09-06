@@ -18,12 +18,3 @@ spec:
       retries: 3
   # Defaults: https://github.com/stakater/Reloader/blob/master/deployments/kubernetes/chart/reloader/values.yaml
   values:
-    crds:
-      enabled: true
-      keep: false
-    resources:
-    requests:
-      cpu: 10m
-      memory: 32Mi
-    prometheus:
-      enabled: false
