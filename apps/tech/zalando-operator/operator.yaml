@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: apps/base/zalando-operator
+  path: ./apps/base/zalando-operator
   prune: true
   wait: true
   patches:
