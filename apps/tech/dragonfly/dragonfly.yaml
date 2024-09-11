@@ -24,4 +24,4 @@ spec:
   #       requests:
   #         storage: 2Gi
   nodeSelector:
-    redis: true
+    redis: "true"
