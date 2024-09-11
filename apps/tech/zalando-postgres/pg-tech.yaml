@@ -19,10 +19,12 @@ spec:
       - createdb
     harbor: []
     grafana: []
+    authentik: []
   databases:
     postgres: postgres # dbname: owner
     harbor: harbor
     grafana: grafana
+    authentik: authentik
   preparedDatabases:
     postgres: {}
   postgresql:
