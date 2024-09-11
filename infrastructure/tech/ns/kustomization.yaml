@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - operator.yaml
   - data.yaml
+  - reloader.yaml
