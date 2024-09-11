@@ -15,6 +15,20 @@ patches:
       name: zalando-operator
     patch: |
       - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: operator
+  - target:
+      kind: HelmRepository
+      name: zalando-pg
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: operator
+  - target:
+      kind: HelmRelease
+      name: zalando-operator
+    patch: |
+      - op: replace
         path: /spec/values
         value:
           enableJsonLogging: true
