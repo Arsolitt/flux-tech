@@ -42,8 +42,8 @@ patches:
                 effect: "NoSchedule"
             resources:
               requests:
-                cpu: 500m
-                memory: 512Mi
+                cpu: 100m
+                memory: 128Mi
               limits:
                 cpu: 2
                 memory: 2048Mi
@@ -58,8 +58,8 @@ patches:
                 effect: "NoSchedule"
             resources:
               requests:
-                cpu: 500m
-                memory: 512Mi
+                cpu: 100m
+                memory: 128Mi
               limits:
                 cpu: 2
                 memory: 2048Mi
@@ -74,8 +74,8 @@ patches:
                 effect: "NoSchedule"
             resources:
               requests:
-                cpu: 500m
-                memory: 512Mi
+                cpu: 100m
+                memory: 128Mi
               limits:
                 cpu: 2
                 memory: 2048Mi
