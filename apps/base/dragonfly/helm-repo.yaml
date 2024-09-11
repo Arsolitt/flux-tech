@@ -1,0 +1,7 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: dragonfly
+spec:
+  interval: 24h
+  url: oci://ghcr.io/dragonflydb/dragonfly/helm/dragonfly
