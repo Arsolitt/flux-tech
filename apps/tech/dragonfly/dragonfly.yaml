@@ -1,0 +1,27 @@
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  name: dragonfly
+  namespace: data
+spec:
+  args:
+    - "--default_lua_flags=allow-undeclared-keys,disable-atomicity"
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  # snapshot:
+  #   cron: "0 2 * * *"
+  #   persistentVolumeClaimSpec:
+  #     storageClassName: hcloud-volumes
+  #     accessModes:
+  #       - ReadWriteOnce
+  #     resources:
+  #       requests:
+  #         storage: 2Gi
+  nodeSelector:
+    redis: true
