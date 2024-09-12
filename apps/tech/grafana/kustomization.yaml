@@ -51,13 +51,13 @@ patches:
             hosts:
               - grafana.arsolitt.tech
             extraPaths:
-            - path: /api/live/ws
-              pathType: Prefix
-              backend:
-                service:
-                  name: {{ $fullName }}
-                  port:
-                    number: {{ $servicePort }}
+              - path: /api/live/ws
+                pathType: Prefix
+                backend:
+                  service:
+                    name: {{ $fullName }}
+                    port:
+                      number: {{ $servicePort }}
             tls:
               - secretName: grafana-arsolitt-tech-tls
                 hosts:
