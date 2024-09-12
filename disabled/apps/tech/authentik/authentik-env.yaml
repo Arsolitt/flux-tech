@@ -31,4 +31,4 @@ spec:
       deletionPolicy: Delete
     dataFrom:
       - find:
-          path: authentik
+          path: authentik/*
