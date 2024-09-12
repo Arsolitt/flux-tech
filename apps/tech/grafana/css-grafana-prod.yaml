@@ -1,0 +1,22 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: grafana-prod
+spec:
+  provider:
+    infisical:
+      auth:
+        universalAuthCredentials:
+          clientId:
+            key: clientId
+            namespace: external-secrets
+            name: infisical-auth
+          clientSecret:
+            key: clientSecret
+            namespace: external-secrets
+            name: infisical-auth
+      secretsScope:
+        projectSlug: tech-e-zvh
+        environmentSlug: prod
+        secretsPath: /grafana
+      hostAPI: https://app.infisical.com

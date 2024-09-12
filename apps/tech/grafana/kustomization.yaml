@@ -1,0 +1,132 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ces-grafana-env.yaml
+  - css-grafana-prod.yaml
+  - ../../base/grafana
+patches:
+  - target:
+      kind: HelmRelease
+      name: grafana
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: monitoring
+  - target:
+      kind: HelmRelease
+      name: grafana
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: monitoring
+  - target:
+      kind: HelmRepository
+      name: grafana
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: monitoring
+  - target:
+      kind: HelmRelease
+      name: grafana
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          testFramework:
+            enabled: false
+            # resources:
+            #   limits:
+            #     cpu: 50m
+            #     memory: 64Mi
+            #   requests:
+            #     cpu: 1m
+            #     memory: 16Mi
+          ingress:
+            enabled: true
+            ingressClassName: contour
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+            hosts:
+              - grafana.arsolitt.tech
+            tls:
+              - secretName: grafana-arsolitt-tech-tls
+                hosts:
+                  - grafana.arsolitt.tech
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          persistence:
+            enabled: false
+            storageClassName: "local-path"
+          initChownData:
+            enabled: true
+            resources:
+              limits:
+                cpu: 50m
+                memory: 64Mi
+              requests:
+                cpu: 10m
+                memory: 5Mi
+          adminPassword: ""
+          grafana.ini:
+            auth:
+              signout_redirect_url: "https://authentik.arsolitt.tech/application/o/<Slug of the application from above>/end-session/"
+              oauth_auto_login: true
+            auth.generic_oauth:
+              name: authentik
+              enabled: true
+              client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
+              client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+              scopes: "openid profile email"
+              auth_url: "https://authentik.arsolitt.tech/application/o/authorize/"
+              token_url: "https://authentik.arsolitt.tech/application/o/token/"
+              api_url: "https://authentik.arsolitt.tech/application/o/userinfo/"
+              # Optionally map user groups to Grafana roles
+              role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
+            smtp:
+              enabled: false
+              # host: "smtp.mail.ru:587"
+              # from_address: "grafana@audiostore.media"
+              # from_name: "Grafana Audiostore"
+              # ehlo_identity: "grafana.audiostore.media"
+              # startTLS_policy: "OpportunisticStartTLS"
+            server:
+              root_url: https://grafana.arsolitt.tech
+          extraSecretMounts:
+            - name: auth-generic-oauth-secret-mount
+              secretName: grafana-env
+              defaultMode: 0440
+              mountPath: /etc/secrets/auth_generic_oauth
+              readOnly: true
+          sidecar:
+            image:
+              # -- The Docker registry
+              registry: quay.io
+              repository: kiwigrid/k8s-sidecar
+              tag: 1.26.1
+              sha: ""
+            imagePullPolicy: IfNotPresent
+            resources:
+              limits:
+                cpu: 100m
+                memory: 128Mi
+              requests:
+                cpu: 10m
+                memory: 16Mi
+          revisionHistoryLimit: 1
+          imageRenderer:
+            enabled: true
+            revisionHistoryLimit: 1
+            resources:
+              limits:
+                cpu: 500m
+                memory: 512Mi
+              requests:
+                cpu: 50m
+                memory: 64Mi
+          useStatefulSet: false

@@ -7,3 +7,4 @@ resources:
   - ingress.yaml
   - external-secrets.yaml
   - security.yaml
+  - monitoring.yaml

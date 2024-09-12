@@ -1,0 +1,28 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: "grafana-env"
+spec:
+  externalSecretName: "grafana-env"
+  namespaceSelectors:
+    - matchLabels:
+        grafana: "true"
+
+  refreshTime: "30m"
+
+  externalSecretSpec:
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: grafana-prod
+
+    refreshInterval: "30m"
+    target:
+      name: grafana-env
+      deletionPolicy: Delete
+    data:
+      - secretKey: client_id
+        remoteRef:
+          key: GRAFANA__AUTHENTIK_CLIENT_ID
+      - secretKey: client_secret
+        remoteRef:
+          key: GRAFANA__AUTHENTIK_CLIENT_SECRET
