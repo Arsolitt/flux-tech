@@ -6,3 +6,4 @@ resources:
   - reloader.yaml
   - ingress.yaml
   - external-secrets.yaml
+  - security.yaml
