@@ -4,3 +4,5 @@ resources:
   - operator.yaml
   - data.yaml
   - reloader.yaml
+  - ingress.yaml
+  - external-secrets.yaml
