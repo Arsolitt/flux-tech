@@ -1,0 +1,22 @@
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: infisical-store-prod
+spec:
+  provider:
+    infisical:
+      auth:
+        universalAuthCredentials:
+          clientId:
+            key: clientId
+            namespace: external-secrets
+            name: infisical-auth
+          clientSecret:
+            key: clientSecret
+            namespace: external-secrets
+            name: infisical-auth
+      secretsScope:
+        projectSlug: tech-e-zvh
+        environmentSlug: prod
+        secretsPath: /
+      hostAPI: https://app.infisical.com
