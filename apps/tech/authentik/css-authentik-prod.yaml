@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
-  name: infisical-store-staging
+  name: authentik-prod
 spec:
   provider:
     infisical:
@@ -17,6 +17,6 @@ spec:
             name: infisical-auth
       secretsScope:
         projectSlug: tech-e-zvh
-        environmentSlug: staging
-        secretsPath: /
+        environmentSlug: prod
+        secretsPath: /authentik
       hostAPI: https://app.infisical.com

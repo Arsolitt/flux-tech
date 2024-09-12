@@ -1,0 +1,29 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: "authentik-env"
+spec:
+  externalSecretName: "authentik-env"
+  namespaceSelectors:
+    - matchLabels:
+        authentik: "true"
+
+  refreshTime: "30m"
+
+  externalSecretSpec:
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: authentik-prod
+
+    refreshInterval: "1m"
+    target:
+      name: authentik-env
+      deletionPolicy: Delete
+    dataFrom:
+      - find:
+          name:
+            regexp: "AUTHENTIK"
+        rewrite:
+          - regexp:
+              source: "(.*)"
+              target: "$1"

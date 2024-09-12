@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
-  name: infisical-store-dev
+  name: css-root-prod
 spec:
   provider:
     infisical:
@@ -17,6 +17,6 @@ spec:
             name: infisical-auth
       secretsScope:
         projectSlug: tech-e-zvh
-        environmentSlug: dev
+        environmentSlug: prod
         secretsPath: /
       hostAPI: https://app.infisical.com
