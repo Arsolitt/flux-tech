@@ -55,9 +55,9 @@ patches:
                 pathType: Prefix
                 backend:
                   service:
-                    name: {{ $fullName }}
+                    name: grafana
                     port:
-                      number: {{ $servicePort }}
+                      number: 80
             tls:
               - secretName: grafana-arsolitt-tech-tls
                 hosts:
