@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - infisical-store-dev.yaml
   - infisical-store-prod.yaml
+  - infisical-store-staging.yaml
