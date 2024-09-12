@@ -3,3 +3,55 @@ kind: Kustomization
 resources:
   - ces-authentik-env.yaml
   - css-authentik-prod.yaml
+  - ../../base/authentik
+patches:
+  - target:
+      kind: HelmRelease
+      name: authentik
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: security
+  - target:
+      kind: HelmRelease
+      name: authentik
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: security
+  - target:
+      kind: HelmRepository
+      name: stakater
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: security
+  - target:
+      kind: HelmRelease
+      name: authentik
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          global:
+            envFrom:
+              # - configMapRef:
+              #     name: config-map-name
+              - secretRef:
+                  name: authentik-env
+
+          server:
+            ingress:
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt
+              ingressClassName: "contour"
+              hosts:
+                - authentik.arsolitt.tech
+              paths:
+                - /
+              pathType: Prefix
+              tls:
+                - secretName: authentik-arsolitt-tech-tls
+                  hosts:
+                    - authentik.arsolitt.tech
