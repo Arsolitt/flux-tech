@@ -21,7 +21,7 @@ patches:
         value: security
   - target:
       kind: HelmRepository
-      name: stakater
+      name: authentik
     patch: |
       - op: replace
         path: /metadata/namespace
