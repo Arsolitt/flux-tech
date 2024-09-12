@@ -50,9 +50,14 @@ patches:
               projectcontour.io/websocket-routes: /api/live/ws
             hosts:
               - grafana.arsolitt.tech
-            paths:
-              - /
-              - /api/live/ws
+            extraPaths:
+            - path: /api/live/ws
+              pathType: Prefix
+              backend:
+                service:
+                  name: {{ $fullName }}
+                  port:
+                    number: {{ $servicePort }}
             tls:
               - secretName: grafana-arsolitt-tech-tls
                 hosts:
