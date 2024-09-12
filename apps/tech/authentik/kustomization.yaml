@@ -51,6 +51,7 @@ patches:
                 - authentik.arsolitt.tech
               paths:
                 - /
+                - /ws/client
               pathType: Prefix
               tls:
                 - secretName: authentik-arsolitt-tech-tls
