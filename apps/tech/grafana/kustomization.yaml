@@ -47,6 +47,7 @@ patches:
             ingressClassName: contour
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt
+              projectcontour.io/websocket-routes: /
             hosts:
               - grafana.arsolitt.tech
             tls:
