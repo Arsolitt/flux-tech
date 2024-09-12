@@ -15,7 +15,7 @@ spec:
       kind: ClusterSecretStore
       name: authentik-prod
 
-    refreshInterval: "1m"
+    refreshInterval: "30m"
     target:
       name: authentik-env
       deletionPolicy: Delete
