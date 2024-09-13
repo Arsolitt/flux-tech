@@ -95,7 +95,6 @@ patches:
               auth_url: "https://authentik.arsolitt.tech/application/o/authorize/"
               token_url: "https://authentik.arsolitt.tech/application/o/token/"
               api_url: "https://authentik.arsolitt.tech/application/o/userinfo/"
-              # Optionally map user groups to Grafana roles
               role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
             smtp:
               enabled: false
@@ -103,11 +102,6 @@ patches:
               root_url: https://grafana.arsolitt.tech
             database:
               type: postgres
-              # host: $__file{/etc/secrets/pg_config/pg_host}
-              # name: $__file{/etc/secrets/pg_config/pg_name}
-              # user: $__file{/etc/secrets/pg_config/pg_user}
-              # password: $__file{/etc/secrets/pg_config/pg_password}
-              # ssl_mode: $__file{/etc/secrets/pg_config/pg_ssl}
               url: $__file{/etc/secrets/pg_config/pg_conn_string}
           extraSecretMounts:
             - name: auth-generic-oauth-secret-mount
