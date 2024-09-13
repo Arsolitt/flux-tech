@@ -26,3 +26,18 @@ spec:
       - secretKey: client_secret
         remoteRef:
           key: GRAFANA__AUTHENTIK_CLIENT_SECRET
+      - secretKey: pg_host
+        remoteRef:
+          key: GRAFANA__PG_HOST
+      - secretKey: pg_name
+        remoteRef:
+          key: GRAFANA__PG_NAME
+      - secretKey: pg_user
+        remoteRef:
+          key: GRAFANA__PG_USER
+      - secretKey: pg_password
+        remoteRef:
+          key: GRAFANA__PG_PASSWORD
+      - secretKey: pg_ssl
+        remoteRef:
+          key: GRAFANA__PG_SSL
