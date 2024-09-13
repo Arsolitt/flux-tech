@@ -7,7 +7,7 @@ spec:
   releaseName: vm-operator
   chart:
     spec:
-      chart: vm-operator
+      chart: victoria-metrics-operator
       sourceRef:
         kind: HelmRepository
         name: vm
