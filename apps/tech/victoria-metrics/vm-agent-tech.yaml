@@ -7,7 +7,9 @@ spec:
   serviceScrapeNamespaceSelector: {}
   podScrapeNamespaceSelector: {}
   podScrapeSelector: {}
-  serviceScrapeSelector: {}
+  serviceScrapeSelector:
+    matchLabels:
+      team: kubernetes
   nodeScrapeSelector: {}
   nodeScrapeNamespaceSelector: {}
   staticScrapeSelector: {}
