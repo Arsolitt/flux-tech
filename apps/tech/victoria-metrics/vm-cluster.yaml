@@ -1,0 +1,50 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMCluster
+metadata:
+  name: vm-cluster
+  namespace: monitoring
+spec:
+  replicationFactor: 1
+  vmstorage:
+    replicaCount: 1
+    storageDataPath: "/vm-data"
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-fast-retain
+          resources:
+            requests:
+              storage: 1Gi
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 1024Mi
+  vmselect:
+    replicaCount: 1
+    cacheMountPath: "/select-cache"
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-fast-delete
+          resources:
+            requests:
+              storage: 1Gi
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 1024Mi
+  vminsert:
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 1024Mi
