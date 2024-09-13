@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - vm-cluster-tech.yaml
   - vm-agent-tech.yaml
+  - vmss-kubernetes-apiservers.yaml

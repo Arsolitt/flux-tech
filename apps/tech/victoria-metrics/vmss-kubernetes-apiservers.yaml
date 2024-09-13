@@ -1,0 +1,29 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: kubernetes-apiservers
+  namespace: monitoring
+spec:
+  jobLabel: job
+  selector:
+    matchLabels:
+      component: apiserver
+  namespaceSelector:
+    any: true
+  endpoints:
+    - port: https
+      interval: 60s
+      scrapeTimeout: 10s
+      scheme: https
+      tlsConfig:
+        caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecureSkipVerify: true
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      path: /metrics
+      metricRelabelConfigs:
+        - sourceLabels:
+            - job
+          targetLabel: job
+          replacement: kubernetes-apiservers
+        - targetLabel: cluster
+          replacement: tech

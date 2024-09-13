@@ -17,3 +17,6 @@ spec:
   vmAgentExternalLabelName: agent
   remoteWrite:
     - url: "http://vminsert-tech.monitoring.svc:8480/insert/0/prometheus/api/v1/write"
+  remoteWriteSettings:
+    label:
+      cluster: tech
