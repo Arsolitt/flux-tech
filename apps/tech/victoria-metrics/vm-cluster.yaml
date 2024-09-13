@@ -4,6 +4,7 @@ metadata:
   name: vm-cluster
   namespace: monitoring
 spec:
+  retentionPeriod: 12
   replicationFactor: 1
   vmstorage:
     replicaCount: 1
