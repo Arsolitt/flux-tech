@@ -1,7 +1,8 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAgent
 metadata:
-  name: example-vmagent
+  name: tech
+  namespace: monitoring
 spec:
   serviceScrapeNamespaceSelector: {}
   podScrapeNamespaceSelector: {}
@@ -13,4 +14,4 @@ spec:
   staticScrapeNamespaceSelector: {}
   replicaCount: 1
   remoteWrite:
-    - url: "http://vminsert-example-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus/api/v1/write"
+    - url: "http://vminsert-tech.monitoring.svc:8480/insert/0/prometheus/api/v1/write"
