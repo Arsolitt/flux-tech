@@ -4,22 +4,16 @@ metadata:
   name: tech
   namespace: monitoring
 spec:
-  serviceScrapeNamespaceSelector:
-    matchNames:
-      - monitoring
-  podScrapeNamespaceSelector:
-    matchNames:
-      - monitoring
+  serviceScrapeNamespaceSelector: {}
+  podScrapeNamespaceSelector: {}
   podScrapeSelector: {}
-  serviceScrapeSelector: {}
+  serviceScrapeSelector:
+    matchLabels:
+      team: kubernetes
   nodeScrapeSelector: {}
-  nodeScrapeNamespaceSelector:
-    matchNames:
-      - monitoring
+  nodeScrapeNamespaceSelector: {}
   staticScrapeSelector: {}
-  staticScrapeNamespaceSelector:
-    matchNames:
-      - monitoring
+  staticScrapeNamespaceSelector: {}
   replicaCount: 1
   remoteWrite:
     - url: "http://vminsert-tech.monitoring.svc:8480/insert/0/prometheus/api/v1/write"
