@@ -99,27 +99,27 @@ patches:
               role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
             smtp:
               enabled: false
-              # host: "smtp.mail.ru:587"
-              # from_address: "grafana@audiostore.media"
-              # from_name: "Grafana Audiostore"
-              # ehlo_identity: "grafana.audiostore.media"
-              # startTLS_policy: "OpportunisticStartTLS"
             server:
               root_url: https://grafana.arsolitt.tech
+            database:
+              type: postgres
+              host: $__file{/etc/secrets/pg_config/pg_host}
+              name: $__file{/etc/secrets/pg_config/pg_name}
+              user: $__file{/etc/secrets/pg_config/pg_user}
+              password: $__file{/etc/secrets/pg_config/pg_password}
+              ssl_mode: $__file{/etc/secrets/pg_config/pg_ssl}
           extraSecretMounts:
             - name: auth-generic-oauth-secret-mount
               secretName: grafana-env
               defaultMode: 0440
               mountPath: /etc/secrets/auth_generic_oauth
               readOnly: true
+            - name: pg-config
+              secretName: grafana-env
+              defaultMode: 0440
+              mountPath: /etc/secrets/pg_config
+              readOnly: true
           sidecar:
-            image:
-              # -- The Docker registry
-              registry: quay.io
-              repository: kiwigrid/k8s-sidecar
-              tag: 1.26.1
-              sha: ""
-            imagePullPolicy: IfNotPresent
             resources:
               limits:
                 cpu: 100m
