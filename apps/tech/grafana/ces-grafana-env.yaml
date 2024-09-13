@@ -26,18 +26,19 @@ spec:
       - secretKey: client_secret
         remoteRef:
           key: GRAFANA__AUTHENTIK_CLIENT_SECRET
-      - secretKey: pg_host
+      - secretKey: pg_conn_string
         remoteRef:
-          key: GRAFANA__PG_HOST
-      - secretKey: pg_name
-        remoteRef:
-          key: GRAFANA__PG_NAME
-      - secretKey: pg_user
-        remoteRef:
-          key: GRAFANA__PG_USER
-      - secretKey: pg_password
-        remoteRef:
-          key: GRAFANA__PG_PASSWORD
-      - secretKey: pg_ssl
-        remoteRef:
-          key: GRAFANA__PG_SSL
+          key: GRAFANA__PG_CONN_STRING
+      # - secretKey: pg_name
+      #   remoteRef:
+      #     key: GRAFANA__PG_NAME
+      # - secretKey: pg_user
+      #   remoteRef:
+      #     key: GRAFANA__PG_USER
+      # - secretKey: pg_password
+      #   remoteRef:
+      #     key: GRAFANA__PG_PASSWORD
+      # - secretKey: pg_ssl
+      #   remoteRef:
+      #     key: GRAFANA__PG_SSL
+# postgresql://grafana:KLu8rWK9uaU7q7t4dE8HWRJpZbE0Rp1TrXJKfhfF13vUZjoN7JbnH5R0dVuKeASP@pg-tech-pooler.data.svc:5432/grafana?binary_parameters=yes&sslmode=require

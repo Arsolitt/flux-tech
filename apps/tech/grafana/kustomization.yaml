@@ -85,7 +85,7 @@ patches:
           grafana.ini:
             auth:
               signout_redirect_url: "https://authentik.arsolitt.tech/application/o/grafana/end-session/"
-              oauth_auto_login: true
+              auto_login: true
             auth.generic_oauth:
               name: authentik
               enabled: true
@@ -103,11 +103,12 @@ patches:
               root_url: https://grafana.arsolitt.tech
             database:
               type: postgres
-              host: $__file{/etc/secrets/pg_config/pg_host}
-              name: $__file{/etc/secrets/pg_config/pg_name}
-              user: $__file{/etc/secrets/pg_config/pg_user}
-              password: $__file{/etc/secrets/pg_config/pg_password}
-              ssl_mode: $__file{/etc/secrets/pg_config/pg_ssl}
+              # host: $__file{/etc/secrets/pg_config/pg_host}
+              # name: $__file{/etc/secrets/pg_config/pg_name}
+              # user: $__file{/etc/secrets/pg_config/pg_user}
+              # password: $__file{/etc/secrets/pg_config/pg_password}
+              # ssl_mode: $__file{/etc/secrets/pg_config/pg_ssl}
+              url: $__file{/etc/secrets/pg_config/pg_conn_string}
           extraSecretMounts:
             - name: auth-generic-oauth-secret-mount
               secretName: grafana-env
