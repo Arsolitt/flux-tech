@@ -4,12 +4,15 @@ metadata:
   name: tech
   namespace: monitoring
 spec:
+  selectAllByDefault: true
   serviceScrapeNamespaceSelector: {}
   podScrapeNamespaceSelector: {}
   podScrapeSelector: {}
   serviceScrapeSelector:
-    matchLabels:
-      team: kubernetes
+    {}
+    # matchLabels:
+    #   team: kubernetes
+    #   app.kubernetes.io/component: monitoring
   nodeScrapeSelector: {}
   nodeScrapeNamespaceSelector: {}
   staticScrapeSelector: {}
