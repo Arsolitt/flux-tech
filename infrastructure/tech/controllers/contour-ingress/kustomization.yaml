@@ -40,7 +40,7 @@ patches:
               applyToIngress: true
               request-headers:
                 set:
-                  Forwarded: "for=%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%;host=%REQ(Host)%;proto=%PROTOCOL%"
+                  X-Real-IP: "%REQ(Cf-Connecting-Ip)%"
           contour:
             nodeSelector:
               ingress: "true"
