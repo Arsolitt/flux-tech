@@ -31,6 +31,16 @@ patches:
       - op: replace
         path: /spec/values
         value:
+          configInline:
+            disablePermitInsecure: false
+            tls:
+              fallback-certificate: {}
+            accesslog-format: envoy
+            policy:
+              applyToIngress: true
+              request-headers:
+                set:
+                  Forwarded: "for=%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%;host=%REQ(Host)%;proto=%PROTOCOL%"
           contour:
             nodeSelector:
               ingress: "true"
