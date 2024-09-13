@@ -1,0 +1,40 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../base/vm-operator
+patches:
+  - target:
+      kind: HelmRelease
+      name: vm-operator
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: operator
+  - target:
+      kind: HelmRelease
+      name: vm-operator
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: operator
+  - target:
+      kind: HelmRepository
+      name: vm
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: operator
+  - target:
+      kind: HelmRelease
+      name: vm-operator
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
