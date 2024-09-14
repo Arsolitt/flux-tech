@@ -36,19 +36,19 @@ patches:
           container_runtime: containerd
           lapi:
             replicas: 1
-            # env:
-            #   - name: ENROLL_KEY
-            #     valueFrom:
-            #       secretKeyRef:
-            #         name: crowdsec-env
-            #         key: ENROLL_KEY
-            #   - name: ENROLL_INSTANCE_NAME
-            #     value: "tech"
-            #   - name: ENROLL_TAGS
-            #     value: "k8s linux tech"
-            envFrom:
-              - secretRef:
-                  name: crowdsec-env
+            env:
+              - name: ENROLL_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: crowdsec-env
+                    key: ENROLL_KEY
+              - name: ENROLL_INSTANCE_NAME
+                value: "tech"
+              - name: ENROLL_TAGS
+                value: "k8s linux tech"
+            # envFrom:
+            #   - secretRef:
+            #       name: crowdsec-env
               # - configMapRef:
               #     name: config-map
             # -- resources for lapi

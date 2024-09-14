@@ -79,6 +79,16 @@ patches:
                 env:
                   - name: BOUNCER_CONFIG
                     value: "/crowdsec/crowdsec-bouncer.conf"
+                  - name: API_URL
+                    valueFrom:
+                      secretKeyRef:
+                        name: nginx-env
+                        key: API_URL
+                  - name: API_KEY
+                    valueFrom:
+                      secretKeyRef:
+                        name: nginx-env
+                        key: API_KEY
                 envFrom:
                   - secretRef:
                       name: nginx-env
