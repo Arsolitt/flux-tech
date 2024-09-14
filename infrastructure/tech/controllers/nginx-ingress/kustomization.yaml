@@ -77,9 +77,7 @@ patches:
                 env:
                   - name: BOUNCER_CONFIG
                     value: "/crowdsec/crowdsec-bouncer.conf"
-                envFrom:
-                  - secretRef:
-                    name: nginx-env
+
                 command:
                   [
                     "sh",
