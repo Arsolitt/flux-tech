@@ -63,6 +63,7 @@ patches:
             config:
               use-forwarded-headers: "true"
               use-http2: "true"
+              worker-processes: "16"
             allowSnippetAnnotations: true
             metrics:
               port: 10254
