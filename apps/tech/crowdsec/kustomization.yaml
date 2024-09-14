@@ -118,7 +118,7 @@ patches:
           tls:
             enabled: true
             certManager:
-              enabled: true
+              enabled: false
               issuerRef:
                 name: "letsencrypt"
                 kind: "ClusterIssuer"
