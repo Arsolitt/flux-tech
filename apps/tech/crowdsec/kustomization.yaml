@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/crowdsec
-  - ces-crowdsec-lapi-secrets.yaml
+  - ces-crowdsec-env.yaml
   - css-crowdsec-prod.yaml
 patches:
   - target:
@@ -40,7 +40,7 @@ patches:
               - name: ENROLL_KEY
                 valueFrom:
                   secretKeyRef:
-                    name: crowdsec-lapi-secrets
+                    name: crowdsec-env
                     key: ENROLL_KEY
               - name: ENROLL_INSTANCE_NAME
                 value: "tech"
@@ -48,7 +48,7 @@ patches:
                 value: "k8s linux tech"
             # envFrom:
             #   - secretRef:
-            #       name: crowdsec-lapi-secrets
+            #       name: crowdsec-env
               # - configMapRef:
               #     name: config-map
             # -- resources for lapi

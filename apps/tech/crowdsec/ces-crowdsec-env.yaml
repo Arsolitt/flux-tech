@@ -3,7 +3,7 @@ kind: ClusterExternalSecret
 metadata:
   name: "crowdsec-env"
 spec:
-  externalSecretName: "crowdsec-lapi-secrets"
+  externalSecretName: "crowdsec-env"
   namespaceSelectors:
     - matchLabels:
         crowdsec: "true"
@@ -26,6 +26,3 @@ spec:
       - secretKey: BOUNCER_KEY_nginx
         remoteRef:
           key: CROWDSEC__BOUNCER_KEY_NGINX
-      - secretKey: csLapiSecret
-        remoteRef:
-          key: CROWDSEC__CS_LAPI_SECRET
