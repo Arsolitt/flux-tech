@@ -73,7 +73,7 @@ patches:
                 # prometheus.io/scrape: "true"
                 # prometheus.io/port: "10254"
               serviceMonitor:
-                enabled: false
+                enabled: true
                 additionalLabels: {}
                 annotations: {}
                 ## The label to use to retrieve the job name from.
