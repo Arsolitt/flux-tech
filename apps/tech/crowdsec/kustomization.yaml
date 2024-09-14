@@ -42,16 +42,15 @@ patches:
                   secretKeyRef:
                     name: crowdsec-env
                     key: ENROLL_KEY
+              - name: BOUNCER_KEY_nginx
+                valueFrom:
+                  secretKeyRef:
+                    name: crowdsec-env
+                    key: BOUNCER_KEY_nginx
               - name: ENROLL_INSTANCE_NAME
                 value: "tech"
               - name: ENROLL_TAGS
                 value: "k8s linux tech"
-            # envFrom:
-            #   - secretRef:
-            #       name: crowdsec-env
-              # - configMapRef:
-              #     name: config-map
-            # -- resources for lapi
             resources:
               requests:
                 cpu: 100m

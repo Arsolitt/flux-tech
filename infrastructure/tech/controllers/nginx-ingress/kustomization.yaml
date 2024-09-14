@@ -34,7 +34,7 @@ patches:
         path: /spec/values
         value:
           controller:
-            kind: DaemonSet
+            kind: Deployment
             affinity:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
@@ -89,9 +89,6 @@ patches:
                       secretKeyRef:
                         name: nginx-env
                         key: API_KEY
-                # envFrom:
-                #   - secretRef:
-                #       name: nginx-env
                 command:
                   [
                     "sh",
@@ -111,7 +108,3 @@ patches:
                 enabled: true
                 jobLabel: "app.kubernetes.io/name"
           revisionHistoryLimit: 2
-          tcp: {}
-          #  "8080": "default/example-tcp-svc:9000"
-          udp: {}
-          #  "53": "kube-system/kube-dns:53"
