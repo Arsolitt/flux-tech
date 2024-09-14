@@ -6,7 +6,7 @@ spec:
   externalSecretName: "nginx-env"
   namespaceSelectors:
     - matchLabels:
-        nginx: "true"
+        ingress: "true"
 
   refreshTime: "30m"
 
