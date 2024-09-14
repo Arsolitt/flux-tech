@@ -65,6 +65,7 @@ patches:
               use-http2: "true"
             allowSnippetAnnotations: true
             extraArgs:
+              {}
               # sort-backends: "true"
             metrics:
               port: 10254
