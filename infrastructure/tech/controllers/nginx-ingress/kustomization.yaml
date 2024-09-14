@@ -64,7 +64,6 @@ patches:
               use-forwarded-headers: "true"
               use-http2: "true"
               worker-processes: "4"
-              ssl-redirect: "false"
             allowSnippetAnnotations: true
             metrics:
               port: 10254
