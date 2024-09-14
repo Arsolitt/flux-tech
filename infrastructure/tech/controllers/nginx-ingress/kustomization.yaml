@@ -89,9 +89,9 @@ patches:
                       secretKeyRef:
                         name: nginx-env
                         key: API_KEY
-                envFrom:
-                  - secretRef:
-                      name: nginx-env
+                # envFrom:
+                #   - secretRef:
+                #       name: nginx-env
                 command:
                   [
                     "sh",

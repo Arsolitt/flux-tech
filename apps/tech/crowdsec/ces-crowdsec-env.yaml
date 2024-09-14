@@ -23,6 +23,6 @@ spec:
       - secretKey: ENROLL_KEY
         remoteRef:
           key: CROWDSEC__ENROLL_KEY
-      - secretKey: BOUNCER_KEY_NGINX
+      - secretKey: BOUNCER_KEY_nginx
         remoteRef:
           key: CROWDSEC__BOUNCER_KEY_NGINX
