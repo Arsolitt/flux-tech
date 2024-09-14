@@ -49,11 +49,11 @@ patches:
                 effect: "NoSchedule"
             resources:
               limits:
-                cpu: 1
-                memory: 1024Mi
+                cpu: 2
+                memory: 2048Mi
               requests:
-                cpu: 10m
-                memory: 50Mi
+                cpu: 500m
+                memory: 512Mi
             service:
               enabled: true
               external:
