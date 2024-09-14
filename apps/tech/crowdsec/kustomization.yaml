@@ -11,21 +11,21 @@ patches:
     patch: |
       - op: replace
         path: /metadata/namespace
-        value: ingress
+        value: security
   - target:
       kind: HelmRelease
       name: crowdsec
     patch: |
       - op: replace
         path: /spec/chart/spec/sourceRef/namespace
-        value: ingress
+        value: security
   - target:
       kind: HelmRepository
       name: crowdsec
     patch: |
       - op: replace
         path: /metadata/namespace
-        value: ingress
+        value: security
   - target:
       kind: HelmRelease
       name: crowdsec
@@ -118,11 +118,7 @@ patches:
           tls:
             enabled: true
             certManager:
-              enabled: true
-              # issuerRef:
-              #   name: "letsencrypt"
-              #   kind: "ClusterIssuer"
             bouncer:
               reflector:
                 namespaces:
-                  - "ingress"
+                  - "security"
