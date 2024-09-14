@@ -118,10 +118,10 @@ patches:
           tls:
             enabled: true
             certManager:
-              enabled: false
-              issuerRef:
-                name: "letsencrypt"
-                kind: "ClusterIssuer"
+              enabled: true
+              # issuerRef:
+              #   name: "letsencrypt"
+              #   kind: "ClusterIssuer"
             bouncer:
               reflector:
                 namespaces:
