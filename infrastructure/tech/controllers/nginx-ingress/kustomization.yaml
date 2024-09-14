@@ -68,13 +68,13 @@ patches:
             metrics:
               port: 10254
               portName: metrics
-              enabled: true
+              enabled: false
               service:
                 annotations: {}
                 # prometheus.io/scrape: "true"
                 # prometheus.io/port: "10254"
               serviceMonitor:
-                enabled: true
+                enabled: false
                 additionalLabels: {}
                 annotations: {}
                 ## The label to use to retrieve the job name from.
