@@ -121,3 +121,4 @@ patches:
               reflector:
                 namespaces:
                   - "security"
+                  - "ingress"
