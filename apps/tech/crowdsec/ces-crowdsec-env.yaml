@@ -26,3 +26,6 @@ spec:
       - secretKey: BOUNCER_KEY_nginx
         remoteRef:
           key: CROWDSEC__BOUNCER_KEY_NGINX
+      - secretKey: BOUNCER_KEY_cloudflare
+        remoteRef:
+          key: CROWDSEC__BOUNCER_KEY_CLOUDFLARE

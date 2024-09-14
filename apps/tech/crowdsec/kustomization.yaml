@@ -49,6 +49,11 @@ patches:
                   secretKeyRef:
                     name: crowdsec-env
                     key: BOUNCER_KEY_nginx
+              - name: BOUNCER_KEY_cloudflare
+                valueFrom:
+                  secretKeyRef:
+                    name: crowdsec-env
+                    key: BOUNCER_KEY_cloudflare
               - name: ENROLL_INSTANCE_NAME
                 value: "tech"
               - name: ENROLL_TAGS
