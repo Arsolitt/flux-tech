@@ -37,6 +37,8 @@ patches:
           lapi:
             replicas: 1
             env:
+              - name: DISABLE_ONLINE_API
+                value: "false"
               - name: ENROLL_KEY
                 valueFrom:
                   secretKeyRef:
@@ -112,3 +114,15 @@ patches:
               enabled: true
               serviceMonitor:
                 enabled: true
+
+          tls:
+            enabled: true
+            certManager:
+              enabled: true
+              issuerRef:
+                name: "letsencrypt"
+                kind: "ClusterIssuer"
+            bouncer:
+              reflector:
+                namespaces:
+                  - "ingress"
