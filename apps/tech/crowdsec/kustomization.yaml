@@ -40,7 +40,7 @@ patches:
               - name: ENROLL_KEY
                 valueFrom:
                   secretKeyRef:
-                    name: crowdsec-env
+                    name: crowdsec-lapi-secrets
                     key: ENROLL_KEY
               - name: ENROLL_INSTANCE_NAME
                 value: "tech"
@@ -48,7 +48,7 @@ patches:
                 value: "k8s linux tech"
             # envFrom:
             #   - secretRef:
-            #       name: crowdsec-env
+            #       name: crowdsec-lapi-secrets
               # - configMapRef:
               #     name: config-map
             # -- resources for lapi
