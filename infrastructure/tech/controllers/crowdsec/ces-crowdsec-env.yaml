@@ -1,0 +1,28 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: "crowdsec-env"
+spec:
+  externalSecretName: "crowdsec-env"
+  namespaceSelectors:
+    - matchLabels:
+        crowdsec: "true"
+
+  refreshTime: "30m"
+
+  externalSecretSpec:
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: crowdsec-prod
+
+    refreshInterval: "30m"
+    target:
+      name: crowdsec-env
+      deletionPolicy: Delete
+    data:
+      - secretKey: ENROLL_KEY
+        remoteRef:
+          key: CROWDSEC__ENROLL_KEY
+      - secretKey: BOUNCER_KEY_NGINX
+        remoteRef:
+          key: CROWDSEC__BOUNCER_KEY_NGINX

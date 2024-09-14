@@ -1,0 +1,28 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: "nginx-env"
+spec:
+  externalSecretName: "nginx-env"
+  namespaceSelectors:
+    - matchLabels:
+        nginx: "true"
+
+  refreshTime: "30m"
+
+  externalSecretSpec:
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: nginx-prod
+
+    refreshInterval: "30m"
+    target:
+      name: nginx-env
+      deletionPolicy: Delete
+    data:
+      - secretKey: API_URL
+        remoteRef:
+          key: CROWDSEC__API_URL
+      - secretKey: API_KEY
+        remoteRef:
+          key: CROWDSEC__API_KEY

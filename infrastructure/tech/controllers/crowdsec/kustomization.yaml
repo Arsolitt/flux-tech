@@ -1,0 +1,115 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../base/crowdsec
+  - ces-crowdsec-env.yaml
+  - css-crowdsec-prod.yaml
+patches:
+  - target:
+      kind: HelmRelease
+      name: crowdsec
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: security
+  - target:
+      kind: HelmRelease
+      name: crowdsec
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: security
+  - target:
+      kind: HelmRepository
+      name: crowdsec
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: security
+  - target:
+      kind: HelmRelease
+      name: crowdsec
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          container_runtime: containerd
+          lapi:
+            replicas: 1
+            # env:
+            #   - name: ENROLL_KEY
+            #     valueFrom:
+            #       secretKeyRef:
+            #         name: crowdsec-env
+            #         key: ENROLL_KEY
+            #   - name: ENROLL_INSTANCE_NAME
+            #     value: "tech"
+            #   - name: ENROLL_TAGS
+            #     value: "k8s linux tech"
+            envFrom:
+              - secretRef:
+                  name: crowdsec-env
+              # - configMapRef:
+              #     name: config-map
+            # -- resources for lapi
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                memory: 500Mi
+                cpu: 500m
+
+            persistentVolume:
+              data:
+                enabled: false
+              config:
+                enabled: false
+
+            nodeSelector:
+              ingress: "true"
+            tolerations:
+              - key: "ingress"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+
+            metrics:
+              enabled: true
+              serviceMonitor:
+                enabled: true
+
+          agent:
+            acquisition:
+              - namespace: "ingress"
+                podName: "nginx-ingress-nginx-controller-*"
+                program: "nginx"
+                poll_without_inotify: false
+            resources:
+              limits:
+                memory: 256Mi
+                cpu: 500m
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            persistentVolume:
+              config:
+                enabled: false
+            env:
+              - name: TZ
+                value: "Europe/Moscow"
+              - name: COLLECTIONS
+                value: "crowdsecurity/nginx"
+
+            nodeSelector:
+              ingress: "true"
+            tolerations:
+              - key: "ingress"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+
+            metrics:
+              enabled: true
+              serviceMonitor:
+                enabled: true
