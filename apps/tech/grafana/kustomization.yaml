@@ -44,10 +44,10 @@ patches:
             #     memory: 16Mi
           ingress:
             enabled: true
-            ingressClassName: contour
+            ingressClassName: nginx
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt
-              projectcontour.io/websocket-routes: /api/live/ws
+              # projectcontour.io/websocket-routes: /api/live/ws
             hosts:
               - grafana.arsolitt.tech
             extraPaths:

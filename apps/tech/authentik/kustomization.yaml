@@ -45,8 +45,8 @@ patches:
               enabled: true
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt
-                projectcontour.io/websocket-routes: /ws/client
-              ingressClassName: "contour"
+                # projectcontour.io/websocket-routes: /ws/client
+              ingressClassName: nginx
               hosts:
                 - authentik.arsolitt.tech
               paths:
