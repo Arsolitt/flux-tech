@@ -114,11 +114,3 @@ patches:
               enabled: true
               serviceMonitor:
                 enabled: true
-
-          tls:
-            enabled: true
-            bouncer:
-              reflector:
-                namespaces:
-                  - "security"
-                  - "ingress"
