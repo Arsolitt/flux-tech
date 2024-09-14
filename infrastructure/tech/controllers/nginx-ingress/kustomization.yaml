@@ -64,9 +64,7 @@ patches:
               use-forwarded-headers: "true"
               use-http2: "true"
             allowSnippetAnnotations: true
-            extraArgs:
-              {}
-              # sort-backends: "true"
+            extraArgs: {}
             metrics:
               port: 10254
               portName: metrics
