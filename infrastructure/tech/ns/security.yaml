@@ -4,4 +4,4 @@ metadata:
   name: security
   labels:
     authentik: "true"
-    # crowdsec: "true"
+    crowdsec: "true"

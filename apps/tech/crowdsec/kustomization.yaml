@@ -117,8 +117,6 @@ patches:
 
           tls:
             enabled: true
-            certManager:
-              enabled: true
             bouncer:
               reflector:
                 namespaces:

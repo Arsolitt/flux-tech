@@ -4,4 +4,3 @@ metadata:
   name: ingress
   labels:
     nginx: "true"
-    crowdsec: "true"
