@@ -116,7 +116,7 @@ patches:
                 enabled: true
 
           tls:
-            enabled: true
+            enabled: false
             bouncer:
               reflector:
                 namespaces:
