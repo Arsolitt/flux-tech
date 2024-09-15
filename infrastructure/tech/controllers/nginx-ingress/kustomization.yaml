@@ -80,7 +80,7 @@ patches:
                   - name: BOUNCER_CONFIG
                     value: "/crowdsec/crowdsec-bouncer.conf"
                   - name: RET_CODE
-                    value: 666
+                    value: "666"
                   - name: API_URL
                     valueFrom:
                       secretKeyRef:
