@@ -42,7 +42,7 @@ patches:
               - Alert.Remediation == true && Alert.GetScope() == "Ip"
               decisions:
               - type: ban
-                duration: 1h
+                duration: 30m
           lapi:
             replicas: 1
             env:
