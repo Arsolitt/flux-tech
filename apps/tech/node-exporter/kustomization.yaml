@@ -32,6 +32,7 @@ patches:
         path: /spec/values
         value:
           revisionHistoryLimit: 2
+          fullnameOverride: "node-exporter"
 
           prometheus:
             monitor:
