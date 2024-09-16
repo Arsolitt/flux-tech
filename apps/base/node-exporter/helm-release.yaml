@@ -6,7 +6,7 @@ spec:
   releaseName: node-exporter
   chart:
     spec:
-      chart: node-exporter
+      chart: prometheus-node-exporter
       sourceRef:
         kind: HelmRepository
         name: node-exporter
