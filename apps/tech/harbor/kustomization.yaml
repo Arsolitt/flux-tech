@@ -1,0 +1,227 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ces-harbor-env.yaml
+  - css-harbor-prod.yaml
+  - ../../base/harbor
+patches:
+  - target:
+      kind: HelmRelease
+      name: harbor
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: data
+  - target:
+      kind: HelmRelease
+      name: harbor
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: data
+  - target:
+      kind: HelmRepository
+      name: harbor
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: data
+  - target:
+      kind: HelmRelease
+      name: harbor
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          expose:
+            type: ingress
+            tls:
+              enabled: true
+            ingress:
+              hosts:
+                core: harbor.arsolitt.tech
+              className: "nginx"
+              annotations:
+                # nginx.ingress.kubernetes.io/ssl-redirect: "false"
+                nginx.ingress.kubernetes.io/proxy-body-size: "0"
+                cert-manager.io/cluster-issuer: letsencrypt
+
+          externalURL: https://harbor.arsolitt.tech
+
+          persistence:
+            enabled: true
+            resourcePolicy: ""
+            persistentVolumeClaim:
+              trivy:
+                existingClaim: ""
+                storageClass: "local-fast-delete"
+                subPath: ""
+                accessMode: ReadWriteOnce
+                size: 1Gi
+                annotations: {}
+            imageChartStorage:
+              disableredirect: true
+              type: s3
+              s3:
+                existingSecret: "harbor-env"
+                region: eu-central-003
+                bucket: harbor-arsolitt-tech
+                regionendpoint: https://s3.eu-central-003.backblazeb2.com
+
+          existingSecretAdminPassword: harbor-env
+          existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
+          # harborAdminPassword: "admin"
+
+          # debug, info, warning, error or fatal
+          logLevel: info
+
+          # Run the migration job via helm hook
+          enableMigrateHelmHook: false
+
+          metrics:
+            enabled: true
+            core:
+              path: /metrics
+              port: 8001
+            registry:
+              path: /metrics
+              port: 8001
+            jobservice:
+              path: /metrics
+              port: 8001
+            exporter:
+              path: /metrics
+              port: 8001
+            serviceMonitor:
+              enabled: true
+              additionalLabels: {}
+              # Scrape interval. If not set, the Prometheus default scrape interval is used.
+              interval: ""
+              # Metric relabel configs to apply to samples before ingestion.
+              metricRelabelings:
+                []
+                # - action: keep
+              #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
+              #   sourceLabels: [__name__]
+              # Relabel configs to apply to samples before ingestion.
+              relabelings:
+                []
+                # - sourceLabels: [__meta_kubernetes_pod_node_name]
+                #   separator: ;
+                #   regex: ^(.*)$
+                #   targetLabel: nodename
+              #   replacement: $1
+              #   action: replace
+
+          cache:
+            enabled: true
+            expireHours: 24
+
+          portal:
+            replicas: 1
+            revisionHistoryLimit: 2
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
+              limits:
+                memory: 256Mi
+                cpu: 100m
+
+          core:
+            replicas: 1
+            revisionHistoryLimit: 2
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
+              limits:
+                memory: 256Mi
+                cpu: 100m
+            quotaUpdateProvider: redis # Or db
+
+          jobservice:
+            replicas: 1
+            revisionHistoryLimit: 2
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
+              limits:
+                memory: 256Mi
+                cpu: 100m
+            jobLoggers:
+              - stdout
+
+          registry:
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
+              limits:
+                memory: 256Mi
+                cpu: 100m
+            controller:
+              requests:
+                memory: 256Mi
+                cpu: 100m
+              limits:
+                memory: 256Mi
+                cpu: 100m
+            replicas: 1
+            revisionHistoryLimit: 2
+
+            relativeurls: false
+            credentials:
+              username: "harbor"
+              existingSecret: "harbor-env"
+
+          trivy:
+            resources:
+              requests:
+                cpu: 200m
+                memory: 256Mi
+              limits:
+                cpu: 1
+                memory: 1Gi
+
+          database:
+            type: external
+            external:
+              host: "pg-tech.data.svc"
+              port: "5432"
+              username: "harbor"
+              password: ""
+              coreDatabase: "harbor"
+              existingSecret: "harbor-env"
+              sslmode: "require"
+            maxIdleConns: 5
+            maxOpenConns: 5
+            podLabels:
+              app: harbor
+
+          redis:
+            type: external
+            external:
+              addr: "dragonfly.data.svc:6379"
+              coreDatabaseIndex: "0"
+              jobserviceDatabaseIndex: "2"
+              registryDatabaseIndex: "2"
+              trivyAdapterIndex: "2"
+              harborDatabaseIndex: "2"
+              cacheLayerDatabaseIndex: "2"
+              username: ""
+              password: ""
+              existingSecret: ""
+
+          exporter:
+            replicas: 1
+            revisionHistoryLimit: 2
+            requests:
+              memory: 256Mi
+              cpu: 100m
+            limits:
+              memory: 256Mi
+              cpu: 100m
+            cacheDuration: 23
+            cacheCleanInterval: 14400

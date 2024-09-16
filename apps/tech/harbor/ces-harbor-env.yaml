@@ -1,0 +1,40 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: "harbor-env"
+spec:
+  externalSecretName: "harbor-env"
+  namespaceSelectors:
+    - matchLabels:
+        harbor: "true"
+
+  refreshTime: "30m"
+
+  externalSecretSpec:
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: harbor-prod
+
+    refreshInterval: "30m"
+    target:
+      name: harbor-env
+      deletionPolicy: Delete
+    data:
+      - secretKey: HARBOR_ADMIN_PASSWORD
+        remoteRef:
+          key: HARBOR_ADMIN_PASSWORD
+      - secretKey: password
+        remoteRef:
+          key: PG_PASSWORD
+      - secretKey: REGISTRY_HTPASSWD
+        remoteRef:
+          key: REGISTRY_HTPASSWD
+      - secretKey: REGISTRY_PASSWD
+        remoteRef:
+          key: REGISTRY_PASSWD
+      - secretKey: REGISTRY_STORAGE_S3_ACCESSKEY
+        remoteRef:
+          key: REGISTRY_STORAGE_S3_ACCESSKEY
+      - secretKey: REGISTRY_STORAGE_S3_SECRETKEY
+        remoteRef:
+          key: REGISTRY_STORAGE_S3_SECRETKEY
