@@ -19,7 +19,7 @@ patches:
         value: reloader
   - target:
       kind: HelmRepository
-      name: stakater
+      name: reloader
     patch: |
       - op: replace
         path: /metadata/namespace
