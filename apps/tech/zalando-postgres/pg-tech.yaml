@@ -17,12 +17,12 @@ spec:
     postgres: # database owner
       - superuser
       - createdb
-    # harbor: []
+    harbor: []
     grafana: []
     authentik: []
   databases:
     postgres: postgres # dbname: owner
-    # harbor: harbor
+    harbor: harbor
     grafana: grafana
     authentik: authentik
   preparedDatabases:
