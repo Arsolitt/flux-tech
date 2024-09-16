@@ -1,0 +1,46 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/kube-state-metrics
+patches:
+  - target:
+      kind: HelmRelease
+      name: kube-state-metrics
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: monitoring
+  - target:
+      kind: HelmRelease
+      name: kube-state-metrics
+    patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: monitoring
+  - target:
+      kind: HelmRepository
+      name: kube-state-metrics
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: monitoring
+  - target:
+      kind: HelmRelease
+      name: kube-state-metrics
+    patch: |
+      - op: replace
+        path: /spec/values
+        value:
+          revisionHistoryLimit: 2
+
+          prometheus:
+            monitor:
+              enabled: true
+
+          resources:
+            limits:
+              cpu: 100m
+              memory: 64Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi

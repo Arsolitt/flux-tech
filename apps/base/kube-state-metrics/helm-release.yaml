@@ -1,15 +1,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: reloader
+  name: kube-state-metrics
 spec:
-  releaseName: reloader
+  releaseName: kube-state-metrics
   chart:
     spec:
-      chart: reloader
+      chart: kube-state-metrics
       sourceRef:
         kind: HelmRepository
-        name: reloader
+        name: kube-state-metrics
   interval: 5m
   install:
     remediation:
