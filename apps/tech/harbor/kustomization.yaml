@@ -42,7 +42,7 @@ patches:
                 core: harbor.arsolitt.tech
               className: "nginx"
               annotations:
-                # nginx.ingress.kubernetes.io/ssl-redirect: "false"
+                nginx.ingress.kubernetes.io/ssl-redirect: "true"
                 nginx.ingress.kubernetes.io/proxy-body-size: "0"
                 cert-manager.io/cluster-issuer: letsencrypt
 
