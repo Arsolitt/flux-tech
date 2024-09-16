@@ -1,15 +1,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: authentik
+  name: harbor
 spec:
-  releaseName: authentik
+  releaseName: harbor
   chart:
     spec:
-      chart: authentik
+      chart: harbor
       sourceRef:
         kind: HelmRepository
-        name: authentik
+        name: harbor
   interval: 5m
   install:
     remediation:
