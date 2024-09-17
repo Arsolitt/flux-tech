@@ -7,4 +7,5 @@ spec:
   addresses:
     - 192.168.1.4/32
     - 192.168.1.8/32
+    - 91.184.242.56/32
   autoAssign: false
