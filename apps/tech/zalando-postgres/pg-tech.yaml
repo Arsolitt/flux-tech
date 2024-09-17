@@ -20,11 +20,13 @@ spec:
     harbor: []
     grafana: []
     authentik: []
+    gotify: []
   databases:
     postgres: postgres # dbname: owner
     harbor: harbor
     grafana: grafana
     authentik: authentik
+    gotify: gotify
   preparedDatabases:
     postgres: {}
   postgresql:
